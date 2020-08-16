@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.*
 import araikovich.inc.araikovichdemo.R
 import araikovich.inc.araikovichdemo.ui.utils.loadCircleIconRes
-import araikovich.inc.araikovichdemo.ui.utils.orZero
-import araikovich.inc.araikovichdemo.ui.utils.toolBarHeight
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -28,7 +26,7 @@ class AraikovichInfoDialogBottomSheet : BottomSheetDialogFragment() {
             val dialog = it as BottomSheetDialog
             bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet)?.apply {
                 val params = this.layoutParams as ViewGroup.MarginLayoutParams
-                params.setMargins(0, activity?.toolBarHeight().orZero(), 0, 0)
+                params.setMargins(0, 0, 0, 0)
                 params.height = ViewGroup.MarginLayoutParams.MATCH_PARENT
                 requestLayout()
             }
@@ -63,12 +61,5 @@ class AraikovichInfoDialogBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ivAraikovich.loadCircleIconRes(R.drawable.my_photo)
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        callMeBtn.setOnClickListener {
-
-        }
     }
 }

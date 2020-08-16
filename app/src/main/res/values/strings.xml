@@ -12,4 +12,5 @@
     <string name="stack">
         Koin\n\nMVVM\n\nLiveData\n\nPaging Library\n\nRetrofit\n\nKotlin Coroutines\n\nRoom
     </string>
+    <string name="invite_message">Привет, нам понравилось твое тестовое. Давай созвонимся и пообщаемся детальнее.</string>
 </resources>

@@ -1,5 +1,6 @@
 package araikovich.inc.araikovichdemo.ui.main_screen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
