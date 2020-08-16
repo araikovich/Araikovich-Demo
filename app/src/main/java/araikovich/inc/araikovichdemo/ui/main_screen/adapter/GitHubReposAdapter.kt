@@ -4,11 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.core.view.isVisible
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import araikovich.inc.araikovichdemo.R
 import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
-import araikovich.inc.araikovichdemo.ui.loadCircleIcon
+import araikovich.inc.araikovichdemo.ui.utils.loadCircleIcon
 import araikovich.inc.araikovichdemo.ui.utils.DiffDefaultCallback
 import kotlinx.android.synthetic.main.view_holder_repo_item.view.*
 
@@ -16,9 +17,7 @@ class GitHubReposAdapter(
     private val context: Context,
     private val onFavouriteClick: (repoId: Int, isFavourite: Boolean) -> Unit
 ) :
-    RecyclerView.Adapter<GitHubRepoViewHolder>() {
-
-    private val items: MutableList<GitHubRepoModel> = mutableListOf()
+    PagedListAdapter<GitHubRepoModel, GitHubRepoViewHolder>(DiffDefaultCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitHubRepoViewHolder {
         return GitHubRepoViewHolder(
@@ -26,17 +25,8 @@ class GitHubReposAdapter(
         )
     }
 
-    override fun getItemCount() = items.size
-
     override fun onBindViewHolder(holder: GitHubRepoViewHolder, position: Int) {
-        holder.bindView(items[position], onFavouriteClick)
-    }
-
-    fun updateItems(newList: List<GitHubRepoModel>) {
-        val diffResult = DiffUtil.calculateDiff(DiffDefaultCallback(newList, items))
-        items.clear()
-        items.addAll(newList)
-        diffResult.dispatchUpdatesTo(this)
+        getItem(position)?.also { holder.bindView(it, onFavouriteClick) }
     }
 }
 
@@ -53,8 +43,9 @@ class GitHubRepoViewHolder(private val view: View) : RecyclerView.ViewHolder(vie
         view.iv_avatar.loadCircleIcon(model.avatarUrl, null)
         view.tv_name.text = model.name
         if (model.description.isEmpty()) {
-            view.tv_description.visibility = View.GONE
+            view.tv_description.isVisible = false
         } else {
+            view.tv_description.isVisible = true
             view.tv_description.text = model.description
         }
         updateStarState(model.isFavourite)

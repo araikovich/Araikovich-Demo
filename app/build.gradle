@@ -69,6 +69,8 @@ dependencies {
         exclude group: 'com.squareup.okhttp3'
         exclude group: 'glide-parent'
     }
+    // Paging
+    implementation "android.arch.paging:runtime:1.0.0"
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
 
     testImplementation 'junit:junit:4.12'

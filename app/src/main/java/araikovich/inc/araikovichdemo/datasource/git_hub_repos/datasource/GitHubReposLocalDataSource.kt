@@ -11,4 +11,6 @@ interface GitHubReposLocalDataSource {
     suspend fun getRepoById(repoId: Int): GitHubRepoEntity
 
     suspend fun updateRepo(repoEntity: GitHubRepoEntity)
+
+    suspend fun getReposByOrganizationName(name: String): List<GitHubRepoEntity>
 }

@@ -1,81 +1,48 @@
 package araikovich.inc.araikovichdemo.ui.main_screen
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
 import araikovich.inc.araikovichdemo.domain.GetGitHubReposUseCase
 import araikovich.inc.araikovichdemo.domain.UpdateGitHubRepoFavouriteStatusUseCase
 import araikovich.inc.araikovichdemo.ui.base.BaseViewModel
-import araikovich.inc.araikovichdemo.ui.base.livedata.ActionResource
-import araikovich.inc.araikovichdemo.ui.base.livedata.setSuccess
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import araikovich.inc.araikovichdemo.ui.base.livedata.ActionState
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainViewModel(
     private val getGitHubReposUseCase: GetGitHubReposUseCase,
     private val updateGitHubRepoFavouriteStatusUseCase: UpdateGitHubRepoFavouriteStatusUseCase
 ) : BaseViewModel() {
 
-    companion object {
+    var gitHubReposLiveData: LiveData<PagedList<GitHubRepoModel>>
+    var gitHubReposLoadingState = MutableLiveData<ActionState>()
 
-        private const val SQUARE_GIT_HUB_NAME = "square"
-        private const val HASHICORP_GIT_HUB_NAME = "hashicorp"
-    }
-
-    val gitHubReposLiveData = MutableLiveData<ActionResource<List<GitHubRepoModel>>>()
-
-    fun getGitHubRepos() {
-        viewModelScope.launch(backgroundScope) {
-            prepareListForResult(
-                async(Dispatchers.IO) {
-                    getGitHubReposUseCase.execute(
-                        SQUARE_GIT_HUB_NAME,
-                        false
-                    )
-                }.await(),
-                async(Dispatchers.IO) {
-                    getGitHubReposUseCase.execute(
-                        HASHICORP_GIT_HUB_NAME,
-                        false
-                    )
-                }.await()
-            )
-            prepareListForResult(
-                async(Dispatchers.IO) {
-                    getGitHubReposUseCase.execute(
-                        SQUARE_GIT_HUB_NAME,
-                        true
-                    )
-                }.await(),
-                async(Dispatchers.IO) {
-                    getGitHubReposUseCase.execute(
-                        HASHICORP_GIT_HUB_NAME,
-                        true
-                    )
-                }.await()
-            )
-        }
-    }
-
-    private suspend fun prepareListForResult(
-        squareItems: List<GitHubRepoModel>,
-        hashicorpItems: List<GitHubRepoModel>
-    ) {
-        if (squareItems.isNotEmpty() && hashicorpItems.isNotEmpty()) {
-            val resultList = mutableListOf<GitHubRepoModel>()
-            resultList.addAll(squareItems)
-            resultList.addAll(hashicorpItems)
-            withContext(Dispatchers.Main) {
-                gitHubReposLiveData.setSuccess(resultList)
-            }
-        }
+    init {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(15)
+            .build()
+        gitHubReposLiveData = initializedPagedListBuilder(config).build()
     }
 
     fun updateGitHubRepoFavouriteState(repoId: Int, updatedFavouriteStatus: Boolean) {
         viewModelScope.launch {
             updateGitHubRepoFavouriteStatusUseCase.execute(repoId, updatedFavouriteStatus)
         }
+    }
+
+    private fun initializedPagedListBuilder(config: PagedList.Config):
+            LivePagedListBuilder<String, GitHubRepoModel> {
+
+        val dataSourceFactory = object : DataSource.Factory<String, GitHubRepoModel>() {
+            override fun create(): DataSource<String, GitHubRepoModel> {
+                return GitHubReposDataSource(getGitHubReposUseCase, gitHubReposLoadingState)
+            }
+        }
+        return LivePagedListBuilder<String, GitHubRepoModel>(dataSourceFactory, config)
     }
 }

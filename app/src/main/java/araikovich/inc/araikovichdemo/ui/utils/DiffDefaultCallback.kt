@@ -1,25 +1,13 @@
 package araikovich.inc.araikovichdemo.ui.utils
 
 import androidx.recyclerview.widget.DiffUtil
+import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
 
-class DiffDefaultCallback(
-    private val newList: List<Any>,
-    private val oldList: List<Any>
-) : DiffUtil.Callback() {
+class DiffDefaultCallback : DiffUtil.ItemCallback<GitHubRepoModel>() {
 
-    override fun getOldListSize(): Int {
-        return oldList.size
-    }
+    override fun areItemsTheSame(oldItem: GitHubRepoModel, newItem: GitHubRepoModel) =
+        oldItem == newItem
 
-    override fun getNewListSize(): Int {
-        return newList.size
-    }
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
-    }
+    override fun areContentsTheSame(oldItem: GitHubRepoModel, newItem: GitHubRepoModel) =
+        oldItem == newItem
 }
