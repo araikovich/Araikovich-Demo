@@ -1,16 +1,19 @@
 package araikovich.inc.araikovichdemo.ui.main_screen
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import araikovich.inc.araikovichdemo.R
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
-import araikovich.inc.araikovichdemo.ui.base.livedata.ActionState
-import araikovich.inc.araikovichdemo.ui.dpToPx
 import araikovich.inc.araikovichdemo.ui.main_screen.adapter.GitHubReposAdapter
+import araikovich.inc.araikovichdemo.ui.main_screen.dialog.AraikovichInfoDialogBottomSheet
 import araikovich.inc.araikovichdemo.ui.utils.VerticalItemsMarginDecorator
+import araikovich.inc.araikovichdemo.ui.utils.dpToPx
+import araikovich.inc.araikovichdemo.ui.utils.loadCircleIconRes
+import araikovich.inc.araikovichdemo.ui.utils.scale
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,16 +27,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupReposAdapter()
+        setupListeners()
+        setupCollapsingAnim()
         observeGitHubRepos()
-        viewModel.getGitHubRepos()
     }
 
     private fun observeGitHubRepos() {
         viewModel.gitHubReposLiveData.observe(this, Observer {
-            when (it.state) {
-                ActionState.SUCCESS -> {
-                    provideGitHubRepos(it.data.orEmpty())
-                }
+            adapter?.submitList(it)
+        })
+        viewModel.gitHubReposLoadingState.observe(this, Observer {
+            if (progressBar.isVisible) {
+                progressBar.isVisible = false
             }
         })
     }
@@ -47,8 +52,24 @@ class MainActivity : AppCompatActivity() {
         rv_items.addItemDecoration(VerticalItemsMarginDecorator(15.dpToPx()))
     }
 
-    private fun provideGitHubRepos(items: List<GitHubRepoModel>) {
-        progressBar.visibility = View.GONE
-        adapter?.updateItems(items)
+    private fun setupCollapsingAnim() {
+        iv_araikovich.loadCircleIconRes(R.drawable.my_photo)
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val index =
+                1f - Math.abs(verticalOffset.toFloat())
+                    .div(appBarLayout.totalScrollRange.toFloat()) * 1.6f
+            val changeValue = if (index < 0) 0f else index
+            iv_araikovich.alpha = changeValue * 2
+            if (iv_araikovich.scaleX > 0.4f && changeValue > 0.4f) {
+                iv_araikovich.scale(changeValue)
+            }
+        })
+    }
+
+    private fun setupListeners() {
+        info.setOnClickListener {
+            supportFragmentManager.beginTransaction().add(AraikovichInfoDialogBottomSheet(), "TAG")
+                .commitAllowingStateLoss()
+        }
     }
 }

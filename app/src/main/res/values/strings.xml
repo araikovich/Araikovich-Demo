@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Araikovich Demo</string>
     <string name="araikovich_demo">Araikovich Demo</string>
+    <string name="araikovich_description">
+        Я подготовил этот прокет как малая демонстрация своих способностей. В нем есть мелкие ошибки или решения, которые
+        я бы никогда не применил в продакшн коде. Все такие моменты я пометил в комментариях проекта.
+        Я очень благодарен Вам, что Вы уделили время посмотреть это тестовое, и очень надеюсь на сотружничество.
+        Как сказал бы классик, желание бешшшшаное имею расти и развиваться.\n
+        Ниже описан стек техноголий именно этого проекта, одноко есть и другие знания.\n
+        Приятного изучения!
+    </string>
+    <string name="stack">
+        Koin\n\nMVVM\n\nLiveData\n\nPaging Library\n\nRetrofit\n\nKotlin Coroutines\n\nRoom
+    </string>
+    <string name="invite_message">Привет, нам понравилось твое тестовое. Давай созвонимся и пообщаемся детальнее.</string>
 </resources>

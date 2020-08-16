@@ -21,4 +21,8 @@ class GitHubReposLocalDataSourceImpl(private val dao: GitHubRepoDao) : GitHubRep
     override suspend fun updateRepo(repoEntity: GitHubRepoEntity) {
         dao.update(repoEntity)
     }
+
+    override suspend fun getReposByOrganizationName(name: String): List<GitHubRepoEntity> {
+        return dao.getReposByOrganizationName(name)
+    }
 }

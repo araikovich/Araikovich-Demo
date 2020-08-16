@@ -11,7 +11,8 @@ val repositoryModule = module {
             get(),
             get(),
             get(named("git_hub_repos_response_to_entity")),
-            get(named("git_hub_repos_entity_to_model"))
+            get(named("git_hub_repos_entity_to_model")),
+            get()
         ) as GitHubReposRepository
     }
 }

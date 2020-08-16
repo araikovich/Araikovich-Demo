@@ -17,4 +17,7 @@ interface GitHubRepoDao {
 
     @Query("SELECT * FROM GitHubRepoEntity WHERE id = :repoId")
     suspend fun getRepoById(repoId: Int): GitHubRepoEntity
+
+    @Query("SELECT * FROM GitHubRepoEntity WHERE login = :name")
+    suspend fun getReposByOrganizationName(name: String): List<GitHubRepoEntity>
 }

@@ -5,7 +5,11 @@ import araikovich.inc.araikovichdemo.datasource.git_hub_repos.repository.GitHubR
 
 class GetGitHubReposUseCase(private val repository: GitHubReposRepository) {
 
-    suspend fun execute(repoName: String, refresh: Boolean): List<GitHubRepoModel> {
-        return repository.getGitHubRepoByName(repoName, refresh)
+    suspend fun execute(repoName: String): List<GitHubRepoModel> {
+        return if (repoName.isEmpty()) {
+            return emptyList()
+        } else {
+            repository.getGitHubRepoByName(repoName).take(15)
+        }
     }
 }

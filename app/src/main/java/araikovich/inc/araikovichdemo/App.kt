@@ -29,7 +29,8 @@ class App : Application() {
                     repositoryModule,
                     dbModule,
                     dataSourceModule,
-                    mapperModule
+                    mapperModule,
+                    networkUtilModule
                 )
             )
         }

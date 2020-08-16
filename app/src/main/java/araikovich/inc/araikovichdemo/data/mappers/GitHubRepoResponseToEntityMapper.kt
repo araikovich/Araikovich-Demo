@@ -2,7 +2,7 @@ package araikovich.inc.araikovichdemo.data.mappers
 
 import araikovich.inc.araikovichdemo.data.models.entities.GitHubRepoEntity
 import araikovich.inc.araikovichdemo.data.models.response.GitHubRepoResponse
-import araikovich.inc.araikovichdemo.ui.orZero
+import araikovich.inc.araikovichdemo.ui.utils.orZero
 
 class GitHubRepoResponseToEntityMapper : Mapper<GitHubRepoResponse, GitHubRepoEntity> {
 
