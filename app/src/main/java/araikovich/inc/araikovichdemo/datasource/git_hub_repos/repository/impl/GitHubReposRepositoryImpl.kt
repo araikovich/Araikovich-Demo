@@ -3,7 +3,7 @@ package araikovich.inc.araikovichdemo.datasource.git_hub_repos.repository.impl
 import araikovich.inc.araikovichdemo.data.mappers.Mapper
 import araikovich.inc.araikovichdemo.data.models.entities.GitHubRepoEntity
 import araikovich.inc.araikovichdemo.data.models.response.GitHubRepoResponse
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
+import araikovich.inc.araikovichdemo.ui.main_screen.models.GitHubRepoModel
 import araikovich.inc.araikovichdemo.datasource.git_hub_repos.datasource.GitHubReposLocalDataSource
 import araikovich.inc.araikovichdemo.datasource.git_hub_repos.datasource.GitHubReposRemoteDataSource
 import araikovich.inc.araikovichdemo.datasource.git_hub_repos.repository.GitHubReposRepository

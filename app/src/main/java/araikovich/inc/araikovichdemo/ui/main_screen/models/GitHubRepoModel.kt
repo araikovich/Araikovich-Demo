@@ -1,4 +1,4 @@
-package araikovich.inc.araikovichdemo.data.models.ui_models
+package araikovich.inc.araikovichdemo.ui.main_screen.models
 
 data class GitHubRepoModel(
     val id: Int,

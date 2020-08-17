@@ -1,6 +1,6 @@
 package araikovich.inc.araikovichdemo.datasource.git_hub_repos.repository
 
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
+import araikovich.inc.araikovichdemo.ui.main_screen.models.GitHubRepoModel
 
 interface GitHubReposRepository {
 

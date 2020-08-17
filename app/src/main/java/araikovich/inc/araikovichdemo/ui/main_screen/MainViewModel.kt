@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
+import araikovich.inc.araikovichdemo.ui.main_screen.models.GitHubRepoModel
 import araikovich.inc.araikovichdemo.domain.GetGitHubReposUseCase
 import araikovich.inc.araikovichdemo.domain.UpdateGitHubRepoFavouriteStatusUseCase
 import araikovich.inc.araikovichdemo.ui.base.BaseViewModel

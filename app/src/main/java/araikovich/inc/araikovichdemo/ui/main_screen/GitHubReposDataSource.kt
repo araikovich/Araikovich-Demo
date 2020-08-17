@@ -2,7 +2,7 @@ package araikovich.inc.araikovichdemo.ui.main_screen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
+import araikovich.inc.araikovichdemo.ui.main_screen.models.GitHubRepoModel
 import araikovich.inc.araikovichdemo.domain.GetGitHubReposUseCase
 import araikovich.inc.araikovichdemo.ui.base.livedata.ActionState
 import kotlinx.coroutines.*
@@ -75,8 +75,7 @@ class GitHubReposDataSource(
     override fun loadBefore(
         params: LoadParams<String>,
         callback: LoadCallback<String, GitHubRepoModel>
-    ) {
-    }
+    ) {}
 
     override fun invalidate() {
         super.invalidate()
