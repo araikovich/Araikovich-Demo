@@ -1,7 +1,7 @@
 package araikovich.inc.araikovichdemo.ui.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
+import araikovich.inc.araikovichdemo.ui.main_screen.models.GitHubRepoModel
 
 class DiffDefaultCallback : DiffUtil.ItemCallback<GitHubRepoModel>() {
 

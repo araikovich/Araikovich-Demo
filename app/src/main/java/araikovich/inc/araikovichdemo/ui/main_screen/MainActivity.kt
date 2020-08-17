@@ -19,6 +19,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+
+        private const val ITEMS_MARGIN_TOP = 15
+    }
+
     private val viewModel: MainViewModel by viewModel()
 
     private var adapter: GitHubReposAdapter? = null
@@ -49,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
         rv_items.adapter = adapter
         rv_items.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rv_items.addItemDecoration(VerticalItemsMarginDecorator(15.dpToPx()))
+        rv_items.addItemDecoration(VerticalItemsMarginDecorator(ITEMS_MARGIN_TOP.dpToPx()))
     }
 
     private fun setupCollapsingAnim() {

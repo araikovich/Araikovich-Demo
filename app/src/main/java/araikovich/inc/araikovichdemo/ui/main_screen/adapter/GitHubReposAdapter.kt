@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import araikovich.inc.araikovichdemo.R
-import araikovich.inc.araikovichdemo.data.models.ui_models.GitHubRepoModel
+import araikovich.inc.araikovichdemo.ui.main_screen.models.GitHubRepoModel
 import araikovich.inc.araikovichdemo.ui.utils.loadCircleIcon
 import araikovich.inc.araikovichdemo.ui.utils.DiffDefaultCallback
 import kotlinx.android.synthetic.main.view_holder_repo_item.view.*
