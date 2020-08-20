@@ -32,7 +32,7 @@ class GitHubReposAdapter(
 
 class GitHubRepoViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-    var model: GitHubRepoModel? = null
+    private var model: GitHubRepoModel? = null
 
     fun bindView(
         model: GitHubRepoModel,

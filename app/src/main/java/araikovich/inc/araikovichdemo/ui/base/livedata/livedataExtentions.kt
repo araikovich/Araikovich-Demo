@@ -2,6 +2,9 @@ package araikovich.inc.araikovichdemo.ui.base.livedata
 
 import androidx.lifecycle.MutableLiveData
 
+/**
+ * Currently doesn't use, but very useful for feature features
+ */
 fun <T> MutableLiveData<ActionResource<T>>.setSuccess(data: T?) =
     postValue(ActionResource(ActionState.SUCCESS, data))
 
